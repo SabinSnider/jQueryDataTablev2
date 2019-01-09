@@ -20,8 +20,7 @@ namespace jQueryDataTablev2.Controllers
             {
                 var data = entities.Customers.OrderBy(a => a.CompanyName).ToList();
                 return Json(new { data = data }, JsonRequestBehavior.AllowGet);
-                //was push success?
-                //ok success..
+
             }
         }
 
