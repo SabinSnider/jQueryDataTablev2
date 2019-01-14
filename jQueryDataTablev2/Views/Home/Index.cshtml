@@ -1,50 +1,71 @@
-﻿
+﻿@model IEnumerable<jQueryDataTablev2.Models.Customers1>
+
 @{
     ViewBag.Title = "Index";
 }
 
-<h2> jQuery DataTable</h2>
+<h2>Index</h2>
 
-<div>
-    <table id="tabledata">
-        <thead>
+<p>
+    @Html.ActionLink("Create New", "Create")
+</p>
+<table class="table" id="tableid">
+    <thead>
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.CustomerID)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.CompanyName)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Contact)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Phone)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Address)
+            </th>
+            <th></th>
+        </tr>
+    </thead>
+
+    <tbody>
+        @foreach (var item in Model)
+        {
             <tr>
-                <th>Customer Name</th>
-                <th>Contact</th>
-                <th>Phone</th>
-                <th>Address</th>
+                <td>
+                    @Html.DisplayFor(modelItem => item.CustomerID)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.CompanyName)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Contact)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Phone)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Address)
+                </td>
+                <td>
+                    <a href="@Url.Action("Edit","Home",new { id = item.CustomerID } )" class="btn btn-primary">Edit</a>
+                    <a href="@Url.Action("Details","Home", new { id = item.CustomerID})" class="btn btn-primary">Details</a>
+                    <a href="@Url.Action("Delete","Home", new { id = item.CustomerID })" class="btn btn-danger">Delete</a>
+
+                </td>
             </tr>
-        </thead>
-    </table>
+        }
+    </tbody>
+</table>
+<link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/1.10.19/css/jquery.dataTables.css">
 
-</div>
+<script type="text/javascript" charset="utf8" src="https://cdn.datatables.net/1.10.19/js/jquery.dataTables.js"></script>
 
-
-<link href="https://cdn.datatables.net/1.10.19/css/jquery.dataTables.min.css" rel="stylesheet" />
-
-@section Scripts{
-
-    <script src="https://cdn.datatables.net/1.10.19/js/jquery.dataTables.min.js"></script>
-
-    <script>
-        $(document).ready(function () {
-
-            $('#tabledata').DataTable({
-                "ajax": {
-                    "url": "/home/loadData",
-                    "type": "GET",
-                    "datatype": "json"
-                },
-                "columns": [
-                    { "data": "CompanyName", "autoWidth": true },
-                    { "data": "Contact", "autoWidth": true },
-                    { "data": "Phone", "autoWidth": true },
-                    { "data": "Address", "autoWidth": true}
-                ]
-
-            });
-
-
-        });
-    </script>
-}
+<script type="text/javascript">
+    $(document).ready(function () {
+        $('#tableid').dataTable();
+    });
+</script>
